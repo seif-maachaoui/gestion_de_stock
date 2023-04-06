@@ -171,8 +171,17 @@ class Interface(Tk):
         tableau.heading("quantité", text="Quantité")
         tableau.column("quantité", width=100)
 
-        #Connexion à ma base de donnée Boutique
-        boutique.connexion("boutique")
+        #Je me connecte à ma base de donnée
+        boutique.connexion
+
+        #Je récupère les données de la table produit
+        cursor = boutique.cursor
+        cursor.execute("SELECT * from produit")
+        result = cursor.fetchall()
+
+        #Pour chaque donnée dans le resultat de la requête, je les insère dans le tableau
+        for data in result:
+            tableau.insert("", "end", text=data[0], values=(data[1], data[2], data[3], data[4]))
 
         #positionnement du tableau dans la Frame
         tableau.pack(fill="both", expand=True)
